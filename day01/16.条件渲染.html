@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <!-- 
+        v-if
+            v-if="表达式"
+            v-else-if="表达式"
+            v-else="表达式"
+            适用于切换频率较低的场景
+            特点：不展示的DOM元素直接被移除
+            注意：v-if和v-else-if、v-else一起使用，但要求结构不能被打断
+        v-show
+            v-show="表达式"
+            适用于切换频率较高的场景
+            特点：不展示的DOM元素未被移除，仅仅是使用样式隐藏掉(display:none)
+     -->
+</head>
+
+<body>
+    <div id="app">
+        <h2>当前的n值为{{n}}</h2>
+        <button @click="n++">点我n+1</button>
+        <!-- 使用v-show条件渲染 -->
+        <hr>
+        <h2 v-show="false">hello1,{{name}}</h2>
+        <h2 v-show="1===1">hello2,{{name}}</h2>
+        <hr>
+        <!-- 使用v-if条件渲染 -->
+        <h2 v-if="false">hello1,{{name}}</h2>
+        <h2 v-if="1===1">hello2,{{name}}</h2>
+        <hr>
+        <!-- v-else和v-else-if和v-else,中间不可以中断 -->
+        <div v-if="n===1">Angular</div>
+        <div v-else-if="n===2">React</div>
+        <!-- 中断 -->
+        <!-- <div>中断</div> -->
+        <div v-else-if="n===3">Vue</div>
+        <div v-else>Other...</div>
+        <!-- v-if与template的配合使用 template不会破坏结构 -->
+        <template v-if="n===1">
+            <h2>hello</h2>
+            <h2>wrc</h2>
+            <h2>js</h2>
+        </template>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                name: 'wrcyyy',
+                n: 0
+            }
+        })
+    </script>
+
+</body>
+
+</html>

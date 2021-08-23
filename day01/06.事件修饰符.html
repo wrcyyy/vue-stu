@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+    <style>
+        * {
+            margin-top: 20px;
+        }
+
+        #demo01 {
+            height: 50px;
+            background-color: seagreen;
+        }
+
+        #box1 {
+            background-color: skyblue;
+            padding: 5px;
+        }
+
+        #box2 {
+            background-color: orange;
+            padding: 5px;
+        }
+
+        .list {
+            height: 200px;
+            width: 200px;
+            background-color: orange;
+            overflow: auto;
+        }
+
+        li {
+            height: 100px;
+        }
+    </style>
+    <!-- 
+        1. prevent：阻止默认事件(常用)
+        2. stop：阻止事件冒泡(常用)
+        3. 事件冒泡 ：当一个元素接收到事件的时候 会把他接收到的事件传给自己的父级，一直到window (注意这里传递的仅仅是事件 并不传递所绑定的事件函数。所以如果父级没有绑定事件函数，就算传递了事件 也不会有什么表现 但事件确实传递了。)
+        4. once：只触发一次(常用)
+        5. capture：使用事件的捕获模式(事件在捕获时就进行处理，而不是在冒泡时)
+        
+        点击div2处，如果不用捕获模式，则先捕获div1，再捕获div2，然后从div2开始冒泡处理事件，所以依次输出2，1
+     -->
+</head>
+
+<body>
+    <div id="app">
+        <!-- 阻止默认事件 -->
+        <a href="http://www.baidu.com" @click.prevent="showInfo">点我提示信息</a>
+        <!-- 阻止事件冒泡 -->
+        <div id="demo01" @click.prevent="showInfo"> <a href="http://www.baidu.com" @click.stop="showInfo">点我提示信息</a>
+        </div>
+        <!-- 事件只触发一次 -->
+        <button @click.once="showInfo">点我提示信息</button>
+        <!-- 使用事件捕获模式 -->
+        <div id="box1" @click.capture="showMsg(1)"> div1 <div id="box2" @click="showMsg(2)">div2</div>
+        </div>
+        <!-- self:只有event.target是当前操作的元素时才触发事件 -->
+        <div @click.self="showInfo">
+            <!-- 点击button时event.target就是这个button，所以div中的showInfo不会触发 -->
+            <button @click="showInfo">点我提示信息</button>
+        </div>
+        <!-- 事件的默认行为立即执行，无需等待事件回调执行完毕 -->
+        <ul @wheel.passive="demo" class="list">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {
+                showInfo() {
+                    alert("wuhu!");
+                },
+                showMsg(msg) {
+                    console.log(msg);
+                },
+                demo() {
+                    for (let i = 0; i < 10000; i++) { console.log('#'); }
+                    console.log('end.');
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

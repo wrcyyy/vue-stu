@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <!-- 
+        1. 使用v-on:xxx或@xxx绑定事件，其中xxx是事件名
+        2. 事件的回调需要配置在methods对象中，最终会在vm上
+        3. methods中配置的函数，不要用箭头函数！否则this就不是vm了
+        4. methods中配置的函数都是被Vue管理的函数，this指向的是vm或组件实例对象
+        5. @click="demo"和@click="demo($event)"效果一样，但后者可以传参
+     -->
+</head>
+
+<body>
+    <div id="app">
+        <h2>Hello,{{name}}</h2>
+        <button v-on:click="showInfo1">点我提示信息1(不传参)</button>
+        <!-- 如果传参时想要不丢失event，则使用$event传参即可 -->
+        <button @click="showInfo2(66,$event)">点我提示信息2(传参)</button>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: { name: '测试天团' },
+            methods: {
+                showInfo1(event) {
+                    //console.log(event.target.innerText)
+                    //console.log(this===vm)  true 此处的this就是Vue实例                
+                    alert("恭喜中奖！");
+                },
+                showInfo2(number, a, b, c) {
+                    alert(number)
+                    console.log(number, a, b, c);
+                }
+            },
+        });
+    </script>
+
+</body>
+
+</html>

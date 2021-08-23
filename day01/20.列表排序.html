@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <!-- 
+        先序知识：JavaScript Array.sort()方法
+            如果调用该方法时没有使用参数，将按字母顺序对数组中的元素进行排序，说得更精确点，是按照字符编码的顺序进行排序。
+                要实现这一点，首先应把数组的元素都转换成字符串（如有必要），以便进行比较。
+            如果想按照其他标准进行排序，就需要提供比较函数，该函数要比较两个值，然后返回一个用于说明这两个值的相对顺序的数字。比较函数应该具有两个参数 a 和 b，其返回值如下：
+                若 a 小于 b，在排序后的数组中 a 应该出现在 b 之前，则返回一个小于 0 的值。
+                若 a 等于 b，则返回 0。
+                若 a 大于 b，则返回一个大于 0 的值。
+     -->
+
+</head>
+
+<body>
+
+    <div id="app">
+        <!-- 遍历数组 -->
+        <h2>人员列表</h2>
+        <input type="text" v-model="keyWord" placeholder="请输入姓名" />
+        <button @click="sortType=2">年龄升序</button>
+        <button @click="sortType=1">年龄降序</button>
+        <button @click="sortType=0">原顺序</button>
+        <ul>
+            <li v-for="p in filPersons" :key="p.id">{{p.name}}--{{p.age}}--{{p.sex}}</li>
+        </ul>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                keyWord: '',
+                sortType: 0,//0代表原数据，1代表降序  2代表升序       
+                persons: [
+                    { id: '001', name: '马冬梅', age: 18, sex: '女' },
+                    { id: '002', name: '周冬雨', age: 30, sex: '女' },
+                    { id: '003', name: '周杰伦', age: 40, sex: '男' },
+                    { id: '004', name: '温兆伦', age: 25, sex: '男' },
+                ]
+            },
+            computed: {
+                filPersons() {
+                    const arr = this.persons.filter((p) => {
+                        return p.name.indexOf(this.keyWord) !== -1
+                    })
+                    //判断是否需要排序   
+                    if (this.sortType) {
+                        arr.sort((p1, p2) => {
+                            return this.sortType === 1 ? p2.age - p1.age : p1.age - p2.age
+                        })
+                    }
+                    return arr
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>

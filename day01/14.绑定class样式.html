@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+        <!-- 绑定class样式 字符串写法，适用于：样式的类名不确定，需要动态指定 -->
+        <div class="basic" :class="mood" @click="changeMood">{{name}}</div>
+        <hr>
+        <!-- 绑定class样式 数组写法，适用于：要绑定样式的个数和名字均不确定 -->
+        <div class="basic" :class="classArr">{{name}}</div>
+        <hr>
+        <!-- 绑定class样式 对象写法，适用于：要绑定样式的个数和名字均确定,但是要动态决定是否使用 -->
+        <div class="basic" :class="classObj">{{name}}</div>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                name: 'zhangjh',
+                mood: 'normal',
+                classArr: ['lxy1', 'lxy2', 'lxy3'],
+                classObj: {
+                    lxz1: false,
+                    lxz2: true
+                }
+            },
+            methods: {
+                changeMood() {
+                    const arr = ['happy', 'sad', 'normal']
+                    const index = Math.floor(Math.random() * 3)
+                    //Math.floor向下取整         
+                    this.mood = arr[index];
+                }
+            },
+        }
+        )
+    </script>
+
+
+</body>
+
+</html>
