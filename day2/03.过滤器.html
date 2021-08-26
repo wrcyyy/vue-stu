@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+    <!-- 
+        定义：
+            对要显示的数据进行特定格式化后再显示(适用于一些简单逻辑的处理)
+        语法：
+            注册处理器:Vue.filter(name,callback)或new Vue{filters:{}}
+        备注
+            过滤器也可以接收额外参数，多个过滤器也可以串联
+            并没有改变原本的数据，是产生新的对应的数据
+        用法：
+            过滤器可以作用在差值语法和v-bind
+     -->
+</head>
+
+<body>
+    <div id="app">
+        <h2>显示格式化后的时间</h2>
+        <!-- 计算属性实现 -->
+        <h3>现在是:{{fmtTime}}</h3>
+        <!-- methods实现 -->
+        <h3>现在是:{{getFmtTime()}}</h3>
+        <!-- 过滤器实现 -->
+        <h3>现在是:{{time | timeFormater('YYYY_MM_DD') | mySlice }}</h3>
+        <!-- 过滤器可以作用在v-bind上 -->
+        <h3 :x="msg | mySlice"></h3>
+        <!-- 过滤器不可作用在v-model上 -->
+        <input type="text" v-model="msg | mySlice" />
+    </div>
+    <div id="app2">
+        <h3>现在是:{{time | mySlice }}</h3>
+    </div>
+    <script>
+        //注册全局过滤器    
+        Vue.filter('mySlice', function (value) {
+            return value.slice(0, 4)
+        })
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                time: 1626589191242,
+                msg: 'hello,cez'
+            },
+
+            computed: {
+                fmtTime() {
+                    return dayjs(this.time).format('YYYY年MM月DD HH:mm:ss')
+                }
+            },
+            methods: {
+                getFmtTime() {
+                    return dayjs(this.time).format('YYYY年MM月DD HH:mm:ss')
+                }
+            },
+            filters: {
+                timeFormater(val, formatStr = 'YYYY年MM月DD HH:mm:ss') {
+                    return dayjs(val).format(formatStr)
+                }
+            }
+        })
+        var vm2 = new Vue({
+            el: '#app2',
+            data: {
+                time: 1626589191242
+            }
+        })
+    </script>
+
+</body>
+
+</html>

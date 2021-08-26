@@ -1,0 +1,24 @@
+{
+  "name": "vue-stu",
+  "version": "1.0.0",
+  "description": "vue 学习",
+  "main": "index.js",
+  "dependencies": {
+    "dayjs": "^1.10.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wrcyyy/vue-stu.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wrcyyy/vue-stu/issues"
+  },
+  "homepage": "https://github.com/wrcyyy/vue-stu#readme"
+}

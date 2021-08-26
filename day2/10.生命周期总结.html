@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <!-- 
+        beforeCreate和created指的是数据监测和数据代理的create，而不是vm对象
+     -->
+</head>
+
+<body>
+    <div id="app">
+        <!-- 简写opacity:opacity 同名 -->
+        <h2 :style="{opacity}">欢迎学习Vue</h2>
+        <button @click="stop">点我停止变换</button>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                opacity: 1
+            },
+            methods: {
+                stop() {
+                    this.$destroy()
+                }
+            },
+            mounted() {
+                console.log('mounted', this)
+                //返回值相当于这个计时器的id
+                this.timer = setInterval(() => {
+                    this.opacity -= 0.01
+                    if (this.opacity <= 0)
+                        this.opacity = 1
+                }, 16)
+            },
+            beforeDestroy() {
+                console.log('vm要被销毁了!')
+                clearInterval(this.timer)
+            }
+        })
+    </script>
+</body>
+
+</html>

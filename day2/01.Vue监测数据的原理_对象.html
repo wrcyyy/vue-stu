@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <!-- 
+        模拟数据监测–setInterval()
+        setInterval() 方法可按照指定的周期（以毫秒计）来调用函数或计算表达式。
+        setInterval() 方法会不停地调用函数，直到 clearInterval() 被调用或窗口被关闭。由 setInterval() 返回的 ID 值可用作 clearInterval() 方法的参数。
+     -->
+</head>
+
+<body>
+    <script>
+        let data = {
+            name: 'wrc',
+            address: 'SiChuan'
+        }
+        // 这里如果不使用tmp变量而是在判断中直接写data.name!='wrc'，则改变data.name，每隔100ms就会调用方法
+        let tmp = 'wrc'
+        setInterval(() => {
+            if (data.name != tmp) {
+                tmp = data.name
+                console.log('name被修改了')
+            }
+        }, 100)
+
+    </script>
+
+</body>
+
+</html>
